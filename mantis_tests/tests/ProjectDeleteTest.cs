@@ -36,5 +36,40 @@ namespace mantis_tests
 
             Assert.That(oldProjectList, Is.EqualTo(newProjectList));
         }
+
+        [Test]
+        public void DeleteProjectApi()
+        {
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "root"
+            };
+
+            if (!app.ProjectManagment.ProjectExists())
+            {
+                
+                ProjectData project = new ProjectData()
+                {
+                    ProjectName = "TestProject"
+                };
+
+                app.Api.CreateNewProject(account, project);
+            }
+
+            List<ProjectData> oldProjectList = app.Api.GetAllProjectsApi(account);
+            ProjectData toBeRemoved = oldProjectList[0];
+
+            app.ProjectManagment.DeleteProject(toBeRemoved);
+
+            List<ProjectData> newProjectList = app.Api.GetAllProjectsApi(account);
+
+            oldProjectList.Remove(toBeRemoved);
+
+            oldProjectList.Sort();
+            newProjectList.Sort();
+
+            Assert.That(oldProjectList, Is.EqualTo(newProjectList));
+        }
     }
 }

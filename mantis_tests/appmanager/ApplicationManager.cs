@@ -30,6 +30,7 @@ namespace mantis_tests
             ProjectManagment = new ProjectManagementHelper(this);
             ManagementMenu = new ManagementMenuHelper(this);
             Navigation = new NavigationHelper(this, baseURL);
+            Api = new ApiHelper(this);
         }
 
         ~ApplicationManager()
@@ -68,5 +69,6 @@ namespace mantis_tests
         public ManagementMenuHelper ManagementMenu { get;  set; }
         public LoginHelper Login { get; set; }
         public NavigationHelper Navigation { get; set; }
+        public ApiHelper Api { get; set; }
     }
 }
