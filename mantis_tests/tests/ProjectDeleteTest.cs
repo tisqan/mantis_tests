@@ -45,8 +45,10 @@ namespace mantis_tests
                 Name = "administrator",
                 Password = "root"
             };
-
-            if (!app.ProjectManagment.ProjectExists())
+            
+            List<ProjectData> oldProjectList = app.Api.GetAllProjectsApi(account);
+            
+            if (oldProjectList.Count == 0)
             {
                 
                 ProjectData project = new ProjectData()
@@ -57,7 +59,7 @@ namespace mantis_tests
                 app.Api.CreateNewProject(account, project);
             }
 
-            List<ProjectData> oldProjectList = app.Api.GetAllProjectsApi(account);
+            
             ProjectData toBeRemoved = oldProjectList[0];
 
             app.ProjectManagment.DeleteProject(toBeRemoved);
